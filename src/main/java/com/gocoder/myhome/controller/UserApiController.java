@@ -3,6 +3,8 @@ package com.gocoder.myhome.controller;
 import com.gocoder.myhome.model.Board;
 import com.gocoder.myhome.model.User;
 import com.gocoder.myhome.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class UserApiController {
 
     @Autowired
@@ -20,7 +23,11 @@ public class UserApiController {
     // tag::get-aggregate-root[]
     @GetMapping("/users")
     List<User> all() {
-            return repository.findAll();
+            List<User> users = repository.findAll();
+            log.debug("getBoards.size() 호출전" );
+            log.debug("getBoards.size() : {}", users.get(0).getBoards().size() );
+            log.debug("getBoards.size() 호출후");
+            return users;
     }
     // end::get-aggregate-root[]
 
